@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+	   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<bean id="anonymousUrlMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/index.do">blogController</prop>
+				<prop key="/blog.do">blogController</prop>
+				<prop key="/login.do">loginController</prop>
+				<prop key="/logout.do">securityController</prop>
+				<prop key="/register.do">registrationController</prop>
+				<prop key="/userHome.do">userController</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="userUrlMapping" 
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+            <list>
+            	<ref bean="userInterceptor"/>
+            </list>
+        </property>
+		<property name="mappings">
+			<props>
+				<prop key="/profile.do">profileController</prop>
+				<prop key="/userConsole.do">blogController</prop>
+				<prop key="/deleteBlog.do">blogController</prop>
+				<prop key="/newBlog.do">newBlogController</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="adminUrlMapping" 
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="interceptors">
+            <list>
+            	<ref bean="userInterceptor"/>
+            	<ref bean="adminInterceptor"/>
+            </list>
+        </property>
+		<property name="mappings">
+			<props>
+				<prop key="/admin.do">adminController</prop>
+				<prop key="/deleteUser.do">adminController</prop>
+				<prop key="/editUser.do">userEditController</prop>
+			</props>
+		</property>
+	</bean>
+
+</beans>
