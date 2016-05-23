@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<bean id="userInterceptor" class="com.blog.interceptor.UserInterceptor">
+		<property name="securityManager" ref="securityManager"/>
+	</bean>
+	<bean id="adminInterceptor" class="com.blog.interceptor.AdminInterceptor">
+		<property name="securityManager" ref="securityManager"/>
+	</bean>
+	<bean id="securityManager" class="com.blog.service.impl.SecurityManager">
+		<property name="userDAO" ref="userDAO"/>
+	</bean>
+	<bean id="blogManager" class="com.blog.service.impl.BlogManager">
+		<property name="blogDAO" ref="blogDAO"/>
+		<property name="userDAO" ref="userDAO"/>
+	</bean>
+	<bean id="profileManager" class="com.blog.service.impl.ProfileManager">
+		<property name="userDAO" ref="userDAO"/>
+	</bean>
+	<bean id="registrationValidator" class="com.blog.controller.form.RegistrationValidator">
+		<property name="securityManager" ref="securityManager"/>
+	</bean>
+	<bean id="loginValidator" class="com.blog.controller.form.LoginValidator">
+		<property name="securityManager" ref="securityManager"/>
+	</bean>
+	<bean id="newBlogValidator" class="com.blog.controller.form.NewBlogValidator"/>
+	<bean id="profileFormValidator" class="com.blog.controller.form.ProfileFormValidator">
+		<property name="securityManager" ref="securityManager"/>
+	</bean>
+	<bean id="userEditValidator" class="com.blog.controller.form.UserEditValidator"/>
+
+</beans>
