@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<bean id="blogController" class="com.blog.controller.BlogController">
+		<property name="blogManager" ref="blogManager"/>
+	</bean>
+	<bean id="securityController" class="com.blog.controller.SecurityController">
+		<property name="securityManager" ref="securityManager"/>
+	</bean>
+	<bean id="adminController" class="com.blog.controller.AdminController">
+		<property name="securityManager" ref="securityManager"/>
+	</bean>
+	<bean id="userController" class="com.blog.controller.UserController">
+		<property name="blogManager" ref="blogManager"/>
+		<!--<property name="securityManager" ref="securityManager"/>-->
+	</bean>
+	<bean id="registrationController" class="com.blog.controller.form.RegistrationController">
+		<property name="securityManager" ref="securityManager"/>
+		<property name="sessionForm" value="true"/>
+	 	<property name="formView" value=".registration"/>
+	    <property name="commandClass" value="com.blog.form.RegistrationForm"/>
+	    <property name="validator" ref="registrationValidator"/>
+	</bean>
+	<bean id="loginController" class="com.blog.controller.form.LoginController">
+		<property name="securityManager" ref="securityManager"/>
+		<property name="sessionForm" value="true"/>
+	 	<property name="formView" value=".login"/>
+	    <property name="commandClass" value="com.blog.form.LoginForm"/>
+	    <property name="validator" ref="loginValidator"/>
+	</bean>
+	<bean id="newBlogController" class="com.blog.controller.form.NewBlogController">
+		<property name="blogManager" ref="blogManager"/>
+		<property name="sessionForm" value="true"/>
+	 	<property name="formView" value=".newBlog"/>
+	    <property name="commandName" value="newBlogForm"/>
+	    <property name="commandClass" value="com.blog.form.NewBlogForm"/>
+	    <property name="validator" ref="newBlogValidator"/>
+	</bean>
+	<bean id="profileController" class="com.blog.controller.form.ProfileController">
+		<property name="profileManager" ref="profileManager"/>
+		<property name="sessionForm" value="true"/>
+	 	<property name="formView" value=".profile"/>
+	 	<property name="commandName" value="userProfileForm"/>
+	    <property name="commandClass" value="com.blog.form.UserProfile"/>
+	    <property name="validator" ref="profileFormValidator"/>
+	</bean>
+	<bean id="userEditController" class="com.blog.controller.form.UserEditController">
+		<property name="securityManager" ref="securityManager"/>
+		<property name="sessionForm" value="true"/>
+	 	<property name="formView" value=".userEdit"/>
+	 	<property name="commandName" value="userProfileForm"/>
+	    <property name="commandClass" value="com.blog.form.UserProfile"/>
+	    <property name="validator" ref="userEditValidator"/>
+	</bean>
+
+</beans>

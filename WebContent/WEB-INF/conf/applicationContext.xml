@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+    
+    <!-- Properties Configurer -->
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>WEB-INF/conf/db/db-access.properties</value>
+				<value>WEB-INF/conf/db/hibernate.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Hibernate Properties -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingResources" ref="mappingResources"/>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${ds.hibernate.dialect}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${ds.hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.cache.use_query_cache">${ds.hibernate.use_query_cache}</prop>
+				<prop key="hibernate.show_sql">${ds.hibernate.show_sql}</prop>
+				<prop key="hibernate.connection.release_mode">${ds.hibernate.release_mode}</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- Transaction Manager -->
+	<bean id="appTransactionManger" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="transactionProxyTemplate" abstract="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="appTransactionManger" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="save*">PROPAGATION_REQUIRED, -com.blog.exception.DaoException</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED, -com.blog.exception.DaoException</prop>
+				<prop key="execute*">PROPAGATION_REQUIRED, -com.blog.exception.DaoException</prop>
+				<prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- Tiles Configuration -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles.TilesJstlView"/>
+    </bean>
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles.TilesConfigurer">
+        <property name="definitions">
+            <list>
+                <value>/WEB-INF/conf/tile_defs/main-definitions.xml</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>
