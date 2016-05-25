@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+       "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+<tiles-definitions>
+	
+    <definition name=".overallTemplate" path="/WEB-INF/tiles/overall-template.jsp">
+    	<put name="extraScripts" value="/WEB-INF/tiles/default.jsp"/>
+    	<put name="header" value="/WEB-INF/tiles/overall-header.jsp"/>
+    	<put name="content" value="/WEB-INF/tiles/default.jsp"/>
+    	<put name="footer" value="/WEB-INF/tiles/overall-footer.jsp"/>
+    </definition>
+    
+    <definition name=".login" extends=".overallTemplate">
+    	<put name="content" value="/WEB-INF/tiles/login_tiles/login.jsp"/>
+    </definition>
+    
+    <definition name=".registration" extends=".overallTemplate">
+    	<put name="content" value="/WEB-INF/tiles/login_tiles/registration.jsp"/>
+    </definition>
+    <definition name=".registrationSuccess" extends=".overallTemplate">
+    	<put name="content" value="/WEB-INF/tiles/login_tiles/registrationSuccess.jsp"/>
+    </definition>
+    
+    <definition name=".home" extends=".overallTemplate">
+    	<put name="content" value="/WEB-INF/tiles/home_tiles/home.jsp"/>
+    </definition>
+    
+    <definition name=".userHome" extends=".overallTemplate">
+    	<put name="content" value="/WEB-INF/tiles/home_tiles/user_home.jsp"/>
+    </definition>
+    
+    <definition name=".newBlog" extends=".overallTemplate">
+    	<put name="content" value="/WEB-INF/tiles/blog_tiles/new_blog.jsp"/>
+    </definition>
+    
+    <definition name=".viewBlog" extends=".overallTemplate">
+    	<put name="content" value="/WEB-INF/tiles/blog_tiles/view_blog.jsp"/>
+    </definition>
+    
+    <definition name=".userConsole" extends=".overallTemplate">
+    	<put name="content" value="/WEB-INF/tiles/blog_tiles/user_console.jsp"/>
+    </definition>
+    
+    <definition name=".adminConsole" extends=".overallTemplate">
+    	<put name="content" value="/WEB-INF/tiles/admin_tiles/admin_console.jsp"/>
+    </definition>
+    
+    <definition name=".profile" extends=".overallTemplate">
+    	<put name="content" value="/WEB-INF/tiles/profile_tiles/user_profile_edit.jsp"/>
+    </definition>
+    
+    <definition name=".userEdit" extends=".overallTemplate">
+    	<put name="content" value="/WEB-INF/tiles/profile_tiles/user_edit.jsp"/>
+    </definition>
+    
+</tiles-definitions>
