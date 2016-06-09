@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.blog.entity.Blog" table="blogs" schema="`blog`">
+		<id name="id" type="java.lang.Integer">
+			<column name="`id`"/>
+			<generator class="increment"/>
+		</id>
+		<many-to-one name="author" class="com.blog.entity.User" fetch="select" lazy="proxy">
+			<column name="`author_id`"/>
+		</many-to-one>
+		<property name="title" type="java.lang.String">
+			<column name="`title`" not-null="true"/>
+		</property>
+		<property name="blog" type="java.lang.String">
+			<column name="`blog`" not-null="true"/>
+		</property>
+		<property name="dateCreated" type="java.util.Calendar">
+			<column name="`date_created`"/>
+		</property>
+		<property name="dateLastUpdated" type="java.util.Calendar">
+			<column name="`date_last_updated`"/>
+		</property>
+	</class>
+</hibernate-mapping>
