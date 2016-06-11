@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.blog.entity.User" table="users" schema="`blog`">
+		<id name="id" type="java.lang.Integer">
+			<column name="`id`"/>
+			<generator class="increment"/>
+		</id>
+		<property name="username" type="java.lang.String">
+			<column name="`username`" length="10" not-null="true"/>
+		</property>
+		<property name="password" type="java.lang.String">
+			<column name="`password`" length="255" not-null="true"/>
+		</property>
+		<property name="email" type="java.lang.String">
+			<column name="`email`" length="255" not-null="true"/>
+		</property>
+		<property name="dateRegistered" type="java.util.Calendar">
+			<column name="`date_registered`" not-null="true"/>
+		</property>
+		<property name="isAdmin" type="java.lang.Boolean">
+			<column name="`is_admin`" default="false"/>
+		</property>
+		<property name="isActive" type="java.lang.Boolean">
+			<column name="`is_active`" default="false"/>
+		</property>
+	</class>
+</hibernate-mapping>
